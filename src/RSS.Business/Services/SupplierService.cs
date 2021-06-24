@@ -12,12 +12,10 @@ namespace RSS.Business.Services
     {
         private readonly ISupplierRepository _supplierRepository;
         private readonly IAddressRepository _addressRepository;
-        private readonly ILogger _logger;
 
         public SupplierService(ISupplierRepository supplierRepository, 
                                 IAddressRepository addressRepository,
-                                INotifiable notifiable,
-                                ILogger logger) : base(notifiable, logger)
+                                INotifiable notifiable) : base(notifiable)
         {
             _supplierRepository = supplierRepository;
             _addressRepository = addressRepository;
@@ -41,7 +39,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-               ExecuteLoggingError(ex.Message, nameof(SupplierService));
+               //ExecuteLoggingError(ex.Message, nameof(SupplierService));
             }
         }
 
@@ -60,7 +58,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-                ExecuteLoggingError(ex.Message, nameof(SupplierService));
+                //ExecuteLoggingError(ex.Message, nameof(SupplierService));
             }
         }
 
@@ -81,7 +79,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-                ExecuteLoggingError(ex.Message, nameof(SupplierService));
+                //ExecuteLoggingError(ex.Message, nameof(SupplierService));
             }
         }
 
@@ -96,7 +94,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-                ExecuteLoggingError(ex.Message, nameof(SupplierService));
+                //ExecuteLoggingError(ex.Message, nameof(SupplierService));
             }
         }
 

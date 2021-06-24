@@ -10,12 +10,10 @@ namespace RSS.Business.Services
     public abstract class BaseService
     {
         private readonly INotifiable _notifiable;
-        private readonly ILogger _logger;
 
-        protected BaseService(INotifiable notifiable, ILogger logger)
+        protected BaseService(INotifiable notifiable)
         {
             _notifiable = notifiable;
-            _logger = logger;
         }
 
         protected void Notify(ValidationResult validationResult)
@@ -39,9 +37,9 @@ namespace RSS.Business.Services
             return false;
         }
 
-        protected void ExecuteLoggingError(string errorMessage, string memberName)
-        {
-            _logger.Error(errorMessage, memberName);
-        }
+        //protected void ExecuteLoggingError(string errorMessage, string memberName)
+        //{
+        //    _logger.Error(errorMessage, memberName);
+        //}
     }
 }

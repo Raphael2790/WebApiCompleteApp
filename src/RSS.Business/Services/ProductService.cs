@@ -13,8 +13,7 @@ namespace RSS.Business.Services
         private readonly ILogger _logger;
 
         public ProductService(IProductRepository productRepository,
-                                INotifiable notifiable,
-                                ILogger logger) : base(notifiable, logger)
+                                INotifiable notifiable) : base(notifiable)
         {
             _productRepository = productRepository;
         }
@@ -30,7 +29,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-                ExecuteLoggingError(ex.Message, nameof(ProductService));
+                //ExecuteLoggingError(ex.Message, nameof(ProductService));
             }
         }
 
@@ -43,7 +42,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-                ExecuteLoggingError(ex.Message, nameof(ProductService));
+                //ExecuteLoggingError(ex.Message, nameof(ProductService));
             }
         }
 
@@ -58,7 +57,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-                ExecuteLoggingError(ex.Message, nameof(ProductService));
+               // ExecuteLoggingError(ex.Message, nameof(ProductService));
             }
         }
 

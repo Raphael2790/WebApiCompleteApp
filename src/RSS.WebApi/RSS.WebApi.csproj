@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RSS.Business\RSS.Business.csproj" />
     <ProjectReference Include="..\RSS.Data\RSS.Data.csproj" />
   </ItemGroup>
