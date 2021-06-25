@@ -4,10 +4,6 @@ using RSS.Business.Notifications;
 using RSS.Business.Services;
 using RSS.Data.Context;
 using RSS.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RSS.WebApi.Configurations
 {
@@ -19,8 +15,10 @@ namespace RSS.WebApi.Configurations
 
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<INotifiable, Notifiable>();
 
             return services;

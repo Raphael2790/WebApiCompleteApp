@@ -13,5 +13,9 @@
     <ProjectReference Include="..\RSS.Data\RSS.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 
 </Project>

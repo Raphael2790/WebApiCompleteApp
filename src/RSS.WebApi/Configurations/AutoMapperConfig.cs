@@ -8,9 +8,21 @@ namespace RSS.WebApi.Configurations
     {
         public AutoMapperConfig()
         {
+            AllowNullCollections = true;
             CreateMap<Address, AddressDTO>().ReverseMap();
             CreateMap<Product, ProductDTO>().ReverseMap();
-            CreateMap<Supplier, SupplierDTO>().ReverseMap();
+            //Verificando se o objeto aninhado é nulo, caso não seja mapeia
+            CreateMap<Supplier, SupplierDTO>().ForMember(s => s.Address, opt =>
+            {
+                opt.Condition(src => src.Adress != null);
+                opt.MapFrom(src => src.Adress);
+            })
+            .ForMember(s => s.Products, opt =>
+            {
+                opt.Condition(src => src.Products != null);
+                opt.MapFrom(src => src.Products);
+            })
+            .ReverseMap();
         }
     }
 }

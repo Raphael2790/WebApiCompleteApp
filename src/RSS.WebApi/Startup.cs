@@ -36,6 +36,8 @@ namespace RSS.WebApi
 
             services.AddControllers();
 
+            services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
+
             services.ResolveDependencies();
         }
 
