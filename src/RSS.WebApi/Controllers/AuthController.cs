@@ -1,8 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using RSS.Business.Interfaces;
 using RSS.WebApi.DTOs;
+using RSS.WebApi.Extensions;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RSS.WebApi.Controllers
@@ -12,12 +18,15 @@ namespace RSS.WebApi.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly AppSettings _appSettings;
         public AuthController(UserManager<IdentityUser> userManager, 
-                              SignInManager<IdentityUser> signInManager, 
+                              SignInManager<IdentityUser> signInManager,
+                              IOptions<AppSettings> appsettings,
                               INotifiable notifiable) : base(notifiable)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _appSettings = appsettings.Value;
         }
 
         [HttpPost("register")]
@@ -38,7 +47,7 @@ namespace RSS.WebApi.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return CustomResponse(registerUser);
+                return CustomResponse(GenerateUserToken());
             }
             foreach (var error in result.Errors)
             {
@@ -59,7 +68,7 @@ namespace RSS.WebApi.Controllers
 
             if (result.Succeeded)
             {
-                return CustomResponse(loginUser);
+                return CustomResponse(GenerateUserToken());
             }
             if (result.IsLockedOut)
             {
@@ -69,6 +78,23 @@ namespace RSS.WebApi.Controllers
 
             NotifyError("Usuário ou Senha inválidos");
             return CustomResponse();
+        }
+
+        private string GenerateUserToken()
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
+            {
+                Issuer = _appSettings.EmittedBy,
+                Audience = _appSettings.ValidOn,
+                Expires = DateTime.UtcNow.AddMinutes(_appSettings.ExpirationMinutes),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            });
+
+            var encodedToken = tokenHandler.WriteToken(token);
+
+            return encodedToken;
         }
     }
 }

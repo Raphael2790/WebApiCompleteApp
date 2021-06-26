@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace RSS.WebApi.Configurations
+namespace RSS.WebApi.Extensions
 {
     public class IdentityLanguageGlobalizationConfig : IdentityErrorDescriber
     {
