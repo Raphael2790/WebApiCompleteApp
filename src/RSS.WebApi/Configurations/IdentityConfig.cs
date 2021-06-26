@@ -17,6 +17,7 @@ namespace RSS.WebApi.Configurations
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddErrorDescriber<IdentityLanguageGlobalizationConfig>()
                 .AddDefaultTokenProviders();
 
             return services;
