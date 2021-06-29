@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RSS.Business.Interfaces;
 using RSS.Business.Models;
 using RSS.WebApi.DTOs;
+using RSS.WebApi.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace RSS.WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class SuppliersController : MainController
     {
@@ -30,6 +33,7 @@ namespace RSS.WebApi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<SupplierDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<SupplierDTO>>> GetAllSuppliers()
         {
@@ -51,6 +55,7 @@ namespace RSS.WebApi.Controllers
         }
 
         [HttpPost]
+        [ClaimsAuthorize("Supplier", "Add")]
         [ProducesResponseType(typeof(Supplier), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> AddSupplier(SupplierDTO supplierDTO)
@@ -63,6 +68,7 @@ namespace RSS.WebApi.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ClaimsAuthorize("Supplier", "Update")]
         [ProducesResponseType(typeof(Supplier), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> UpdateSupplier(Guid id, SupplierDTO supplierDTO)
@@ -81,6 +87,7 @@ namespace RSS.WebApi.Controllers
         }
 
         [HttpDelete("id:guid")]
+        [ClaimsAuthorize("Supplier", "Delete")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -103,6 +110,7 @@ namespace RSS.WebApi.Controllers
         }
 
         [HttpPut("update-address/{id:guid}")]
+        [ClaimsAuthorize("Supplier", "Update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AddressDTO>> UpdateAddress(Guid id, AddressDTO addressDTO)

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RSS.Business.Interfaces;
 using RSS.Business.Models;
 using RSS.WebApi.DTOs;
+using RSS.WebApi.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace RSS.WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ProductsController : MainController
     {
@@ -30,6 +33,7 @@ namespace RSS.WebApi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<ProductDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> GetAllProducts()
         {
@@ -50,6 +54,7 @@ namespace RSS.WebApi.Controllers
 
         //Recebe o Upload Image em base64 convertendo novamente para arquivo, porém é limitado pelo tamnho do corpo da requisição
         [HttpPost]
+        [ClaimsAuthorize("Product", "Add")]
         [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ProductDTO>> AddProduct([FromBody]ProductDTO productDTO)
@@ -71,6 +76,7 @@ namespace RSS.WebApi.Controllers
         //Envio via form data usando chave e valor, inclusive para o arquivo
         [RequestSizeLimit(REQUEST_SIZE_LIMIT)]
         [HttpPost]
+        [ClaimsAuthorize("Product", "Add")]
         [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ProductFormFileDTO>> AddProductWithFile([FromForm] ProductFormFileDTO productDTO)
@@ -95,6 +101,7 @@ namespace RSS.WebApi.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ClaimsAuthorize("Product", "Update")]
         [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ProductDTO>> UpdateProduct(Guid id, ProductDTO productDTO)
@@ -127,6 +134,7 @@ namespace RSS.WebApi.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [ClaimsAuthorize("Product", "Delete")]
         [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

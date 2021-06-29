@@ -29,6 +29,8 @@ namespace RSS.WebApi
             services.AddWebApiConfig();
 
             services.ResolveDependencies();
+
+            services.AddIdentityConfig(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -37,6 +39,8 @@ namespace RSS.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseRouting();
 
             app.UseAuthorization();
 

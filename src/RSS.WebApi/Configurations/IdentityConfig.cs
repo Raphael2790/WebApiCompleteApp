@@ -38,7 +38,7 @@ namespace RSS.WebApi.Configurations
             })
             .AddJwtBearer(x => {
                 //Ativar para somente permitir receber requisições https
-                x.RequireHttpsMetadata = false;
+                x.RequireHttpsMetadata = true;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {

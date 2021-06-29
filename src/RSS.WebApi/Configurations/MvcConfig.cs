@@ -7,7 +7,6 @@ namespace RSS.WebApi.Configurations
         public static IApplicationBuilder UseMvcConfiguration(this IApplicationBuilder app)
         {
             app.UseHttpsRedirection();
-            app.UseRouting();
             app.UseCors("Development");
             app.UseEndpoints(endpoints =>
             {
