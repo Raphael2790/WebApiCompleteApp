@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RSS.Business.Interfaces;
 using RSS.Business.Models;
+using RSS.WebApi.Controllers;
 using RSS.WebApi.DTOs;
 using RSS.WebApi.Extensions;
 using System;
@@ -11,10 +12,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace RSS.WebApi.Controllers
+namespace RSS.WebApi.v2.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [ApiVersion("2.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class ProductsController : MainController
     {
         const long REQUEST_SIZE_LIMIT = 40000000;

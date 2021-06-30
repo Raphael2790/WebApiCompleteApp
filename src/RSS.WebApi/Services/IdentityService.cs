@@ -25,7 +25,8 @@ namespace RSS.WebApi.Services
         public IdentityService(UserManager<IdentityUser> userManager, 
                                 SignInManager<IdentityUser> signInManager,
                                 INotifiable notifiable,
-                                IOptions<AppSettings> appSettings) : base (notifiable)
+                                IUser appUser,
+                                IOptions<AppSettings> appSettings) : base (notifiable, appUser)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -89,7 +90,7 @@ namespace RSS.WebApi.Services
             return response;
         }
 
-        private static long ToUnixEpochDate(DateTime date) => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
+        public static long ToUnixEpochDate(DateTime date) => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
 
 
         public async Task<ServiceResult<LoginResponseDTO>> CreateIdentityUser(RegisterUserDTO registerUser)

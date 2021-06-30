@@ -37,7 +37,17 @@ namespace RSS.WebApi
         {
             if (env.IsDevelopment())
             {
+                //configuração global do cors em dev
+                app.UseCors("Development");
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                //configuração global em prod   
+                app.UseCors("Production");
+                //habilita o padrão https após a primeira requisição https
+                //deve ser combinado com redirect https para forçar um redirect inseguro
+                app.UseHsts();
             }
 
             app.UseRouting();
