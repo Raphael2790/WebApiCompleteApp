@@ -13,7 +13,8 @@ namespace RSS.WebApi.Controllers
         private readonly IIdentityService _identityService;
 
         public AuthController(IIdentityService identityService,
-                              INotifiable notifiable) : base(notifiable)
+                              INotifiable notifiable,
+                              IUser appUser) : base(notifiable, appUser)
         {
             _identityService = identityService;
         }
@@ -29,7 +30,6 @@ namespace RSS.WebApi.Controllers
 
             if(!result.Success)
             return CustomResponse(registerUser);
-
 
             return CustomResponse(result.Result);
         }

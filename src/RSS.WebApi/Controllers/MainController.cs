@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using RSS.Business.Interfaces;
 using RSS.Business.Notifications;
+using System;
 using System.Linq;
 
 namespace RSS.WebApi.Controllers
@@ -10,10 +11,22 @@ namespace RSS.WebApi.Controllers
     public abstract class MainController : ControllerBase
     {
         private readonly INotifiable _notifiable;
+        public readonly IUser AppUser;
 
-        protected MainController(INotifiable notifiable)
+        protected Guid UserId { get; }
+        protected bool AuthenticatedUser { get; }
+
+        protected MainController(INotifiable notifiable,
+                                  IUser appUser)
         {
             _notifiable = notifiable;
+            AppUser = appUser;
+
+            if (appUser.IsAuthenticated())
+            {
+                UserId = appUser.GetUserId();
+                AuthenticatedUser = true;
+            }
         }
 
         protected ActionResult CustomResponse(ModelStateDictionary modelState)

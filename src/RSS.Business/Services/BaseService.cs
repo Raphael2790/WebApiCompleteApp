@@ -10,8 +10,12 @@ namespace RSS.Business.Services
     public abstract class BaseService
     {
         private readonly INotifiable _notifiable;
+        //caso o serviço precise de mais dados do usuário conseguimos facilmente extender a interface para fornecer os dados
+        //ou até mesmo se necessário o próprio contexto http pela classe HttpAcessor
+        private readonly IUser _appUser;
 
-        protected BaseService(INotifiable notifiable)
+        protected BaseService(INotifiable notifiable,
+                               IUser appUser)
         {
             _notifiable = notifiable;
         }

@@ -15,7 +15,8 @@ namespace RSS.Business.Services
 
         public SupplierService(ISupplierRepository supplierRepository, 
                                 IAddressRepository addressRepository,
-                                INotifiable notifiable) : base(notifiable)
+                                INotifiable notifiable,
+                                IUser appUser) : base(notifiable, appUser)
         {
             _supplierRepository = supplierRepository;
             _addressRepository = addressRepository;

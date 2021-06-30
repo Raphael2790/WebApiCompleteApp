@@ -25,7 +25,8 @@ namespace RSS.WebApi.Controllers
         public ProductsController(IProductRepository productRepository,
                                     IProductService productService,
                                     IMapper mapper,
-                                    INotifiable notifiable) : base(notifiable)
+                                    INotifiable notifiable,
+                                    IUser appUser) : base(notifiable, appUser)
         {
             _productRepository = productRepository;
             _productService = productService;

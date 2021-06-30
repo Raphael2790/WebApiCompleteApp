@@ -13,7 +13,8 @@ namespace RSS.Business.Services
         private readonly ILogger _logger;
 
         public ProductService(IProductRepository productRepository,
-                                INotifiable notifiable) : base(notifiable)
+                              INotifiable notifiable,
+                              IUser appUser) : base(notifiable, appUser)
         {
             _productRepository = productRepository;
         }

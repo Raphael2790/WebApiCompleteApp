@@ -25,7 +25,8 @@ namespace RSS.WebApi.Controllers
         public SuppliersController(ISupplierRepository supplierRepository, 
                                     IMapper mapper,
                                     IAddressRepository addressRepository,
-                                    INotifiable notifiable) : base (notifiable)
+                                    INotifiable notifiable,
+                                    IUser appUser) : base(notifiable, appUser)
         {
             _supplierRepository = supplierRepository;
             _mapper = mapper;
