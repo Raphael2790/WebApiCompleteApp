@@ -13,7 +13,7 @@ namespace RSS.WebApi.Configurations
             //atualizado o pacote nuget de versionamento para 4.1 devido falta de suporte no 3.1
             services.AddApiVersioning(options => {
                 options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.DefaultApiVersion = new ApiVersion(2, 0);
                 options.ReportApiVersions = true;
             });
 

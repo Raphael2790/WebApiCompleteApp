@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using RSS.Business.Interfaces;
 using RSS.Business.Notifications;
 using RSS.Business.Services;
@@ -8,6 +9,7 @@ using RSS.Data.Repository;
 using RSS.WebApi.Extensions;
 using RSS.WebApi.Services;
 using RSS.WebApi.Services.Interfaces;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace RSS.WebApi.Configurations
 {
@@ -29,6 +31,8 @@ namespace RSS.WebApi.Configurations
 
             //injeção de dependencia que viabiliza o acesso ao contexto da requisição em qualquer classe que receba a injeção de dependencia
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
             return services;
         }

@@ -78,7 +78,7 @@ namespace RSS.WebApi.v2.Controllers
         //Aumenta o tamanho máximo do request body
         //Envio via form data usando chave e valor, inclusive para o arquivo
         [RequestSizeLimit(REQUEST_SIZE_LIMIT)]
-        [HttpPost]
+        [HttpPost("with-file")]
         [ClaimsAuthorize("Product", "Add")]
         [ProducesResponseType(typeof(ProductDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
