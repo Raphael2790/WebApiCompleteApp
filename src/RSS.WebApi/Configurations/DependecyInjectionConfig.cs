@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using KissLog;
+using KissLog.AspNetCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RSS.Business.Interfaces;

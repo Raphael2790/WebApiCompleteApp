@@ -16,7 +16,8 @@ namespace RSS.Business.Services
         public SupplierService(ISupplierRepository supplierRepository, 
                                 IAddressRepository addressRepository,
                                 INotifiable notifiable,
-                                IUser appUser) : base(notifiable, appUser)
+                                ILogger logger,
+                                IUser appUser) : base(notifiable, logger, appUser)
         {
             _supplierRepository = supplierRepository;
             _addressRepository = addressRepository;
@@ -40,7 +41,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-               //ExecuteLoggingError(ex.Message, nameof(SupplierService));
+               ExecuteLoggingError(ex.Message, nameof(SupplierService));
             }
         }
 
@@ -59,7 +60,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-                //ExecuteLoggingError(ex.Message, nameof(SupplierService));
+                ExecuteLoggingError(ex.Message, nameof(SupplierService));
             }
         }
 
@@ -80,7 +81,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-                //ExecuteLoggingError(ex.Message, nameof(SupplierService));
+                ExecuteLoggingError(ex.Message, nameof(SupplierService));
             }
         }
 
@@ -95,7 +96,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-                //ExecuteLoggingError(ex.Message, nameof(SupplierService));
+                ExecuteLoggingError(ex.Message, nameof(SupplierService));
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using KissLog;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RSS.Business.Interfaces;
@@ -25,8 +26,9 @@ namespace RSS.WebApi.Services
         public IdentityService(UserManager<IdentityUser> userManager, 
                                 SignInManager<IdentityUser> signInManager,
                                 INotifiable notifiable,
+                                ILogger logger,
                                 IUser appUser,
-                                IOptions<AppSettings> appSettings) : base (notifiable, appUser)
+                                IOptions<AppSettings> appSettings) : base (notifiable, logger, appUser)
         {
             _userManager = userManager;
             _signInManager = signInManager;

@@ -14,7 +14,8 @@ namespace RSS.Business.Services
 
         public ProductService(IProductRepository productRepository,
                               INotifiable notifiable,
-                              IUser appUser) : base(notifiable, appUser)
+                              ILogger logger,
+                              IUser appUser) : base(notifiable, logger, appUser)
         {
             _productRepository = productRepository;
         }
@@ -30,7 +31,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-                //ExecuteLoggingError(ex.Message, nameof(ProductService));
+                ExecuteLoggingError(ex.Message, nameof(ProductService));
             }
         }
 
@@ -43,7 +44,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-                //ExecuteLoggingError(ex.Message, nameof(ProductService));
+                ExecuteLoggingError(ex.Message, nameof(ProductService));
             }
         }
 
@@ -58,7 +59,7 @@ namespace RSS.Business.Services
             catch (Exception ex)
             {
 
-               // ExecuteLoggingError(ex.Message, nameof(ProductService));
+               ExecuteLoggingError(ex.Message, nameof(ProductService));
             }
         }
 

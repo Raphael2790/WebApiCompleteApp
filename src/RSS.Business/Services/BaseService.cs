@@ -13,11 +13,14 @@ namespace RSS.Business.Services
         //caso o serviço precise de mais dados do usuário conseguimos facilmente extender a interface para fornecer os dados
         //ou até mesmo se necessário o próprio contexto http pela classe HttpAcessor
         private readonly IUser _appUser;
+        private readonly ILogger _logger;
 
         protected BaseService(INotifiable notifiable,
+                              ILogger logger,
                                IUser appUser)
         {
             _notifiable = notifiable;
+            _logger = logger;
         }
 
         protected void Notify(ValidationResult validationResult)
@@ -41,9 +44,9 @@ namespace RSS.Business.Services
             return false;
         }
 
-        //protected void ExecuteLoggingError(string errorMessage, string memberName)
-        //{
-        //    _logger.Error(errorMessage, memberName);
-        //}
+        protected void ExecuteLoggingError(string errorMessage, string memberName)
+        {
+            _logger.Error(errorMessage, memberName);
+        }
     }
 }
