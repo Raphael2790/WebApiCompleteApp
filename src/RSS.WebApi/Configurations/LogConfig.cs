@@ -19,11 +19,7 @@ namespace RSS.WebApi.Configurations
     {
         public static IServiceCollection AddLogConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHealthChecks()
-                .AddCheck("HasProductsInDatabase", new SqlServerHealthCheck(configuration.GetConnectionString("DefaultConnection")))
-                .AddCheck<SystemMemoryHealthCheck>("MemoryCheck")
-                .AddSqlServer(configuration.GetConnectionString("DefaultConnection"), name: "BancoSQL");
-
+            services.AddHealthChecks().AddHealthChecksConfiguration(configuration);
 
             services.AddHealthChecksUI(setup => {
                 var healthCheckSettings = configuration.GetSection("HealthChecks-UI:HealthChecks").Get<HealthCheckSettings>();
